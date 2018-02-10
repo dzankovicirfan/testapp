@@ -31,7 +31,7 @@ class Company(models.Model):
 class Vacancy(models.Model):
     is_active = models.BooleanField('Active', default=False)
     title = models.CharField('Title', max_length=100, blank=True, null=True)
-    location = models.ForeignKey(City, related_name='vacancies', on_delete=models.CASCADE, blank=True, null=True)
+    location = models.CharField('Location', max_length=200, null=True, blank=True)
     starts_at = models.DateField('Starts', blank=True, null=True)
     ends_at = models.DateField('Ends', blank=True, null=True)
     description = models.TextField('Description', null=True, blank=True, default=None)
