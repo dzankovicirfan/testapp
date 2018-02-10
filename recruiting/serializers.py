@@ -14,6 +14,7 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    location = CitySerializer(read_only=True)
 
     class Meta:
         model = Company

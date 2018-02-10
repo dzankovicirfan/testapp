@@ -8,6 +8,6 @@ from recruiting.serializers import VacancySerializer
 
 
 class VacancyView(ModelViewSet):
-    queryset = Vacancy.objects.all()
+    queryset = Vacancy.objects.is_active()
     serializer_class = VacancySerializer
     filter_field = ('location', 'company')

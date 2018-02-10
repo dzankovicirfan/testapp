@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from recruiting.managers import VacancyManager
 
 
 class City(models.Model):
@@ -37,9 +38,11 @@ class Vacancy(models.Model):
     image_list = models.ImageField(upload_to='vacancies', blank=True, null=True)
     company = models.ForeignKey(Company, related_name='vacancies', on_delete=models.CASCADE, blank=True, null=True)
 
+    objects = VacancyManager()
+
     class Meta:
         verbose_name = 'vacancy'
         verbose_name_plural = 'vacancies'
 
     def __str__(self):
-        return str(self.name)
+        return str(self.title)
