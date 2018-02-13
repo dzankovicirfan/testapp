@@ -31,11 +31,11 @@ class Company(models.Model):
 class Vacancy(models.Model):
     is_active = models.BooleanField('Active', default=False)
     title = models.CharField('Title', max_length=100, blank=True, null=True)
-    location = models.CharField('Location', max_length=200, null=True, blank=True)
-    starts_at = models.DateField('Starts', blank=True, null=True)
-    ends_at = models.DateField('Ends', blank=True, null=True)
+    location = models.CharField('Location', max_length=400, null=True, blank=True)
+    starts_at = models.CharField('Starts', blank=True, null=True, max_length=40)
+    duration = models.CharField('Duration(months)', blank=True, null=True, max_length=40)
     description = models.TextField('Description', null=True, blank=True, default=None)
-    image_list = models.ImageField(upload_to='vacancies', blank=True, null=True)
+    image_list = models.ImageField(upload_to='media/vacancies/', blank=True, null=True)
     company = models.ForeignKey(Company, related_name='vacancies', on_delete=models.CASCADE, blank=True, null=True)
 
     objects = VacancyManager()

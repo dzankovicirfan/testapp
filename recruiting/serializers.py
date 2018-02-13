@@ -26,4 +26,4 @@ class VacancySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vacancy
-        fields = ('is_active', 'title', 'location', 'starts_at', 'ends_at', 'description', 'image_list', 'company')
+        fields = ('is_active', 'title', 'location', 'starts_at', 'duration', 'description', 'image_list', 'company')
