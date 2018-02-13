@@ -23,10 +23,10 @@ class Command(BaseCommand):
         content = soup.find('div', {'id': 'jobs'})
         ul = content.find('ul', {'class': 'tr-list'})
         items = ul.find_all('li', {'class': 'tr-list__item'}, recursive=False)[:20]
+
         for item in items:
             title = item.find('h4').contents[0]
             company = item.find('div', {'class': 'tr-overflow-ellipsis'}).find('span').contents[0]
-
             image = item.find('img')
             image = image['src'] if image else None
 
@@ -38,28 +38,9 @@ class Command(BaseCommand):
 
             start_date = right_div[0].contents[-1].strip()
             duration = right_div[2].contents[-1].strip()
-
             location = right_div[1].contents[-1].strip()
-
-            description_a = 'https://www.trainee.de' + item.find('a', href=True)['href']
-            description_url = requests.get(description_a) 
-            description_soup = BeautifulSoup(description_url.content, "html.parser")
-            description_content = description_soup.find('div', {'class': 'tr-content tr-box tr-box--default tr-text+ tr-mrgb'}).text
-            
-            data = {
-                'title': title,
-                'location': location,
-                'starts_at': start_date,
-                'duration': duration,
-                'description': description_content,
-                'image_list': image,
-                'company': company
-            }
-            try:
-                company = Company.objects.get(name=company)
-            except Company.DoesNotExist:             
-                company_create = Company.objects.create(
-                    name=company)
+            description = self.description_content(item)
+            company_create = Company.objects.get_or_create(name=company)[0]
 
             vacancy_create = Vacancy.objects.create(
                 is_active=True,
@@ -67,9 +48,20 @@ class Command(BaseCommand):
                 location=location, 
                 starts_at=start_date,
                 duration=duration,
-                description=description_content,
+                description=description,
                 company=company_create
             )
 
 
         self.stdout.write(self.style.SUCCESS('Successfully parsed data.'))
+
+    def description_content(self, item):
+        '''
+        Get description content from link for the vacancy
+        '''
+        description_a = 'https://www.trainee.de' + item.find('a', href=True)['href']
+        description_url = requests.get(description_a) 
+        description_soup = BeautifulSoup(description_url.content, "html.parser")
+        description_content = description_soup.find('div', {'class': 'tr-content tr-box tr-box--default tr-text+ tr-mrgb'}).text
+
+        return description_content
