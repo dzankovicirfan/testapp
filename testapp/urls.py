@@ -18,7 +18,7 @@ from django.contrib import admin
 
 api_urls = (
     [
-        url(r'^', include('recruiting.urls'))
+        url(r'^', include('recruiting.urls'), name='vacancies')
     ],
     'api'
 )

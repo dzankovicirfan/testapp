@@ -9,7 +9,6 @@ from recruiting.views import VacancyView
 router = routers.DefaultRouter()
 router.register(r'vacancies', VacancyView)
 
-app_name = 'account'
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]

@@ -10,11 +10,9 @@ from recruiting.models import Vacancy
 from recruiting.serializers import VacancySerializer
 
 
-
 class VacancyView(ModelViewSet):
     queryset = Vacancy.objects.is_active()
     serializer_class = VacancySerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_field = ('location', 'company')
-    permisssion_classes = (IsAdminUser ,)
-
+    permisssion_classes = (IsAdminUser,)

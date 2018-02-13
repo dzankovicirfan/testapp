@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from datetime import datetime
-import re
 import requests
 from bs4 import BeautifulSoup
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from recruiting.models import Vacancy, Company
 
@@ -40,18 +38,18 @@ class Command(BaseCommand):
             duration = right_div[2].contents[-1].strip()
             location = right_div[1].contents[-1].strip()
             description = self.description_content(item)
+
             company_create = Company.objects.get_or_create(name=company)[0]
 
             vacancy_create = Vacancy.objects.create(
                 is_active=True,
                 title=title,
-                location=location, 
+                location=location,
                 starts_at=start_date,
                 duration=duration,
                 description=description,
                 company=company_create
             )
-
 
         self.stdout.write(self.style.SUCCESS('Successfully parsed data.'))
 
