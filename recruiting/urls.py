@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.conf.urls import url, include
 from rest_framework import routers
 
-from recruiting.views import VacancyView
+from .views import VacancyView
 
 router = routers.DefaultRouter()
 router.register(r'vacancies', VacancyView)

@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from recruiting.models import Vacancy, City, Company
+
+from .models import Vacancy, City, Company
 
 
 class VacancyAdmin(admin.ModelAdmin):

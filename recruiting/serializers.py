@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from rest_framework import serializers
 
-from recruiting.models import Vacancy, Company, City
+from .models import Vacancy, Company, City
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -26,4 +26,7 @@ class VacancySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vacancy
-        fields = ('id','is_active', 'title', 'location', 'starts_at', 'duration', 'description', 'image_list', 'company')
+        fields = (
+            'id', 'is_active', 'title', 'location', 'starts_at',
+            'duration', 'description', 'image_list', 'company'
+        )

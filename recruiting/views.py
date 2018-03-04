@@ -6,8 +6,8 @@ from rest_framework.viewsets import ModelViewSet
 import django_filters.rest_framework
 from rest_framework.permissions import IsAdminUser
 
-from recruiting.models import Vacancy
-from recruiting.serializers import VacancySerializer
+from .models import Vacancy
+from .serializers import VacancySerializer
 
 
 class VacancyView(ModelViewSet):
